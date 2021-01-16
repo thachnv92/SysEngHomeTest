@@ -109,5 +109,13 @@ ulimit -n unlimited
 
 sysctl -p
 
+# Change port SSH
+sed -i 's/Port 22/Port 2022/g' /etc/ssh/sshd_config
+
+# Permit root login
+sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
+
+service ssh restart
+
 reboot
 
