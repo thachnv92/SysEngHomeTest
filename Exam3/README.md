@@ -11,3 +11,6 @@
 5. Configure Filebeat push Nginx access log to Elasticsearch.
 Then, show response time of web application to Kibana/Grafana Dashboard.
 ===
+
+Draw a model that is scalable and responsive to the most traffic you have ever deployed
+![alt text](https://github.com/thachnv92/SysEngHomeTest/blob/master/Exam3/model.png?raw=true)
