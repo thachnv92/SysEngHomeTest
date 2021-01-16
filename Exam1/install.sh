@@ -64,7 +64,7 @@ cat << EOF > /etc/docker/daemon.json
 EOF
 
 #Tuned for hight network traffic workload
-cat << EOF > /etc/sysctl.conf
+cat << EOF >> /etc/sysctl.conf
 # allow testing with buffers up to 64MB 
 net.core.rmem_default = 67108864 
 net.core.wmem_default = 67108864 
@@ -91,7 +91,23 @@ net.ipv4.tcp_max_tw_buckets='400000'
 net.ipv4.tcp_no_metrics_save='1'
 net.ipv4.tcp_syn_retries='2'
 net.ipv4.tcp_synack_retries='2'
+# Increase open files
+fs.file-max=65536
 EOF
+
+# Increase the File Descriptor Limit
+cat << EOF >> /etc/security/limits.conf
+* soft     nproc          65535
+* hard     nproc          65535
+* soft     nofile         65535
+* hard     nofile         65535
+EOF
+
+echo "session required /lib/security/pam_limits.so" >> /etc/pam.d/login
+echo 65535 > /proc/sys/fs/file-max
+ulimit -n unlimited
+
+sysctl -p
 
 reboot
 
